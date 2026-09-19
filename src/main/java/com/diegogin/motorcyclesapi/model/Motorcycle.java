@@ -1,18 +1,36 @@
 package com.diegogin.motorcyclesapi.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "motorcycles")
 public class Motorcycle {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String imageUrl;
+
+    @Column(nullable=false)
     private String brand;
+
+    @Column(nullable=false)
     private String model;
+
+    @Column(nullable=false)
+    private Integer year;
+
+    private String imageUrl;
     private String version;
     private String generation;
     private String category;
-    private Integer year;
     private LocalDate releaseDate;
     private String country;
     private String seatHeight;
