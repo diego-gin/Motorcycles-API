@@ -6,6 +6,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -18,12 +22,16 @@ public class Motorcycle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Brand is required")
     @Column(nullable=false)
     private String brand;
 
+    @NotBlank(message = "Model is required")
     @Column(nullable=false)
     private String model;
 
+    @NotNull(message = "Year is required")
+    @Min(value = 1915, message = "Year must be greater than 1915")
     @Column(nullable=false)
     private Integer year;
 
@@ -33,15 +41,32 @@ public class Motorcycle {
     private String category;
     private LocalDate releaseDate;
     private String country;
-    private String seatHeight;
+
+    @Positive(message = "Seat Height must be greater than zero")
+    private BigDecimal seatHeight;
+
+    @Positive(message = "Weight must be greater than zero")
     private BigDecimal weight;
+
+    @Positive(message = "Fuel tank capacity must be greater than zero")
     private BigDecimal fuelTankCapacity;
+
     private String engineType;
     private String cooling;
+
+    @Positive(message = "Number of cylinders must be greater than zero")
     private Integer cylinders;
+
+    @Positive(message = "Power must be greater than zero")
     private BigDecimal power;
+
+    @Positive(message = "Torque must be greater than zero")
     private BigDecimal torque;
+
+    @Positive(message = "Displacement must be greater than zero")
     private Integer displacement;
+
+    @Positive(message = "Top speed must be greater than zero")
     private Integer topSpeed;
 
     public Long getId() {
@@ -124,11 +149,11 @@ public class Motorcycle {
         this.country = country;
     }
 
-    public String getSeatHeight() {
+    public BigDecimal getSeatHeight() {
         return seatHeight;
     }
 
-    public void setSeatHeight(String seatHeight) {
+    public void setSeatHeight(BigDecimal seatHeight) {
         this.seatHeight = seatHeight;
     }
 
