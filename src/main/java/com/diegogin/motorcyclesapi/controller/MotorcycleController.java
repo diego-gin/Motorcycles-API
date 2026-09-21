@@ -3,6 +3,7 @@ package com.diegogin.motorcyclesapi.controller;
 import com.diegogin.motorcyclesapi.model.Motorcycle;
 import com.diegogin.motorcyclesapi.service.MotorcycleService;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +41,7 @@ public class MotorcycleController {
     }
 
     @PostMapping //ENDPOINT POST
-    public ResponseEntity<Motorcycle> createMotorcycle(@RequestBody Motorcycle motorcycle) {
+    public ResponseEntity<Motorcycle> createMotorcycle(@Valid  @RequestBody Motorcycle motorcycle) {
         Motorcycle savedMotorcycle = motorcycleService.saveMotorcycle(motorcycle);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMotorcycle);
@@ -60,7 +61,7 @@ public class MotorcycleController {
     @PutMapping("/{id}") //PUT
     public ResponseEntity<Motorcycle> updateMotorcycle(
             @PathVariable Long id,
-            @RequestBody Motorcycle motorcycle) {
+            @Valid @RequestBody Motorcycle motorcycle) {
 
         Optional<Motorcycle> updatedMotorcycle =
                 motorcycleService.updateMotorcycle(id, motorcycle);
