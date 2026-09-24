@@ -11,6 +11,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -22,14 +24,17 @@ public class Motorcycle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Schema(example = "Honda")
     @NotBlank(message = "Brand is required")
     @Column(nullable=false)
     private String brand;
 
+    @Schema(example = "CBR900RR FireBlade")
     @NotBlank(message = "Model is required")
     @Column(nullable=false)
     private String model;
 
+    @Schema(example = "1992")
     @NotNull(message = "Year is required")
     @Min(value = 1915, message = "Year must be greater than 1915")
     @Column(nullable=false)
@@ -42,8 +47,9 @@ public class Motorcycle {
     private LocalDate releaseDate;
     private String country;
 
+    @Schema(description = "Seat Height in mm", example = "830")
     @Positive(message = "Seat Height must be greater than zero")
-    private BigDecimal seatHeight;
+    private Integer seatHeight;
 
     @Positive(message = "Weight must be greater than zero")
     private BigDecimal weight;
@@ -63,6 +69,7 @@ public class Motorcycle {
     @Positive(message = "Torque must be greater than zero")
     private BigDecimal torque;
 
+    @Schema(description = "Displacement in CC", example = "893")
     @Positive(message = "Displacement must be greater than zero")
     private Integer displacement;
 
@@ -149,11 +156,11 @@ public class Motorcycle {
         this.country = country;
     }
 
-    public BigDecimal getSeatHeight() {
+    public Integer getSeatHeight() {
         return seatHeight;
     }
 
-    public void setSeatHeight(BigDecimal seatHeight) {
+    public void setSeatHeight(Integer seatHeight) {
         this.seatHeight = seatHeight;
     }
 

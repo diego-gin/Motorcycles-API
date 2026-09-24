@@ -1,5 +1,6 @@
 package com.diegogin.motorcyclesapi.service;
 
+import com.diegogin.motorcyclesapi.dto.MotorcycleSummary;
 import com.diegogin.motorcyclesapi.model.Motorcycle;
 import com.diegogin.motorcyclesapi.repository.MotorcycleRepository;
 
@@ -18,8 +19,17 @@ public class MotorcycleService {
     }
 
     //FIND ALL IN REPOSITORY LIST
-    public List<Motorcycle> getAllMotorcycles() {
-        return motorcycleRepository.findAll();
+    public List<MotorcycleSummary> getAllMotorcycles() {
+
+        return motorcycleRepository.findAll()
+                .stream()
+                .map(motorcycle -> new MotorcycleSummary(
+                        motorcycle.getId(),
+                        motorcycle.getBrand(),
+                        motorcycle.getModel(),
+                        motorcycle.getYear()
+                ))
+                .toList();
     }
 
     //FIND BY ID > OPTIONAL NULL
