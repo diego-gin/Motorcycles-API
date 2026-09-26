@@ -87,9 +87,7 @@ public class MotorcycleController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = Motorcycle.class),
                             examples = @ExampleObject(
-                                    value = OpenApiExamples.RESPONSE
-                            )
-                    )
+                                    value = OpenApiExamples.RESPONSE))
             ),
             @ApiResponse(
                     responseCode = "400",
@@ -97,9 +95,12 @@ public class MotorcycleController {
                     content = @Content(
                             mediaType = "application/json",
                             examples = @ExampleObject(
-                                    value = OpenApiExamples.VALIDATION_ERROR
-                            )
-                    )
+                                    value = OpenApiExamples.VALIDATION_ERROR))
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized",
+                    content = @Content
             )
     })
     @PostMapping
@@ -146,6 +147,11 @@ public class MotorcycleController {
                     )
             ),
             @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized",
+                    content = @Content
+            ),
+            @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
                     content = @Content
@@ -184,6 +190,11 @@ public class MotorcycleController {
                     content = @Content
             ),
             @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized",
+                    content = @Content
+            ),
+            @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
                     content = @Content
@@ -194,11 +205,24 @@ public class MotorcycleController {
 
         boolean deleted = motorcycleService.deleteMotorcycle(id);
 
-        if(!deleted) {return ResponseEntity.notFound().build();}
-
+        if(!deleted) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.noContent().build();
     }
 
+    /* DELETE RESPONSE
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MessageResponse> deleteMotorcycle(@PathVariable Long id) {
+
+        boolean deleted = motorcycleService.deleteMotorcycle(id);
+
+        if (!deleted) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(new MessageResponse("Motorcycle deleted successfully"));
+    }
+    */
 }
 
 
