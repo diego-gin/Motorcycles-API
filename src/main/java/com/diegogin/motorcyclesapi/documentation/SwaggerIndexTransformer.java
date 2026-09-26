@@ -41,7 +41,7 @@ public class SwaggerIndexTransformer extends SwaggerIndexPageTransformer {
         Resource transformedResource =
                 super.transform(request, resource, transformer);
 
-        if (!resource.getFilename().equals("swagger-initializer.js")) {
+        if (!"swagger-initializer.js".equals(resource.getFilename())) {
             return transformedResource;
         }
 
@@ -52,11 +52,12 @@ public class SwaggerIndexTransformer extends SwaggerIndexPageTransformer {
         String operationsSorter = """
             operationsSorter: (a, b) => {
                 const order = {
-                    getAllMotorcycles: 1,
-                    getMotorcycleById: 2,
-                    createMotorcycle: 3,
-                    updateMotorcycle: 4,
-                    deleteMotorcycle: 5
+                    getAuthStatus: 1,
+                    getAllMotorcycles: 2,
+                    getMotorcycleById: 3,
+                    createMotorcycle: 4,
+                    updateMotorcycle: 5,
+                    deleteMotorcycle: 6
                 };
 
                 const aId = a.get("operation").get("operationId");
@@ -73,7 +74,12 @@ public class SwaggerIndexTransformer extends SwaggerIndexPageTransformer {
 
         return new ByteArrayResource(
                 content.getBytes(StandardCharsets.UTF_8)
-        );
+        ) {
+            @Override
+            public String getFilename() {
+                return resource.getFilename();
+            }
+        };
     }
 
 }
