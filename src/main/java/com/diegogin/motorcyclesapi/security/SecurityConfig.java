@@ -33,11 +33,12 @@ public class SecurityConfig {
             "/v3/api-docs/**",
             "/login").permitAll()
 
-                .requestMatchers(HttpMethod.GET, "/api/motorcycles/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/motorcycles", "/api/motorcycles/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/auth/status").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/motorcycles/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/motorcycles/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/motorcycles/**").hasRole("ADMIN")
+                .requestMatchers("/", "/index.html", "/js/**").permitAll()
                 .anyRequest().authenticated()
 
             )
@@ -83,7 +84,5 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(admin);
 
     }
-
-
 
 }

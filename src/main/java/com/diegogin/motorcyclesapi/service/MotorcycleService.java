@@ -27,7 +27,8 @@ public class MotorcycleService {
                         motorcycle.getId(),
                         motorcycle.getBrand(),
                         motorcycle.getModel(),
-                        motorcycle.getYear()
+                        motorcycle.getYear(),
+                        motorcycle.getDisplacement()
                 ))
                 .toList();
     }
@@ -68,7 +69,6 @@ public class MotorcycleService {
         motorcycle.setVersion(updatedMotorcycle.getVersion());
         motorcycle.setGeneration(updatedMotorcycle.getGeneration());
         motorcycle.setCategory(updatedMotorcycle.getCategory());
-        motorcycle.setReleaseDate(updatedMotorcycle.getReleaseDate());
         motorcycle.setCountry(updatedMotorcycle.getCountry());
         motorcycle.setSeatHeight(updatedMotorcycle.getSeatHeight());
         motorcycle.setWeight(updatedMotorcycle.getWeight());
