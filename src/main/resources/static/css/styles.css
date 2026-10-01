@@ -1,0 +1,301 @@
+
+/* __________________________________________ MAIN / SET-UP __________________________________________ */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #fdf5cf;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+h1, h2, h3, p {
+    margin: 0.75rem;
+}
+
+.wrapper {
+    width: min(90%, 1280px);
+    margin: 0 auto;
+}
+
+main {
+    display: grid;
+    grid-template-columns: minmax(200px, 22%) 1fr;
+    gap: 2rem;
+}
+
+/* __________________________________________ HEADER / NAV __________________________________________ */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+/* __________________________________________ STRUCTURE / CATALOG __________________________________________ */
+
+#catalogContent {
+    display: grid;
+    gap: 0.75rem;
+}
+
+#searchInput, #sortSelect {
+    width: 100%;
+}
+
+#catalogList {
+    min-height: 240px;
+    max-height: 480px;
+    overflow-y: scroll;
+}
+
+#catalogList button {
+    display: block;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* __________________________________________ STRUCTURE / DETAILS __________________________________________ */
+
+#catalogSection > h2,
+#detailsSection > h2 {
+    height: 48px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+#detailsMessage:empty {
+    display: none;
+}
+
+#detailsContent {
+    display: grid;
+    grid-template-columns: 55% 1fr;
+    grid-template-rows: 304px auto;
+    gap: 1rem 0.75rem;
+}
+
+#imageContainer {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#detailsImage {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#detailsContainer {
+    display: flex;
+    flex-direction: column;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+}
+
+#details,
+#identification {
+    flex: 1;
+}
+
+#identification {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#engine {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#specifications {
+   grid-column: 2;
+   grid-row: 2;
+}
+
+/* __________________________________________ STRUCTURE / MEDIA-QUERY __________________________________________ */
+
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    header {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    #catalogContent {
+        gap: 0.75rem;
+    }
+
+    #detailsContent {
+        container-type: inline-size;
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+        row-gap: 0.75rem;
+    }
+
+    #imageContainer {
+        width: 100%;
+        height: min(304px, 75cqw);
+        overflow: hidden;
+    }
+
+    #detailsImage {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    #imageContainer,
+    #detailsContainer,
+    #engine,
+    #specifications {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    #catalogList {
+        max-height: 280px;
+    }
+}
+
+/* __________________________________________ DESIGN __________________________________________ */
+
+#catalogList::-webkit-scrollbar {
+    width: 15px;
+}
+
+#catalogList::-webkit-scrollbar-track {
+    background: #e5e5e5;
+}
+
+#catalogList::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 4px;
+}
+
+header {
+    border-bottom: 1px solid #aaa;
+}
+
+header h1 {
+    font-size: 1.5rem;
+}
+
+#authButton {
+    padding: 0.4rem 0.75rem;
+
+    font: inherit;
+
+    background: #fff;
+    border: 1px solid #aaa;
+    cursor: pointer;
+}
+
+#authButton:hover {
+    background: #eee;
+}
+
+/* __________________________________________ DESIGN / CATALOG __________________________________________ */
+
+#catalogSection > h2,
+#detailsSection > h2 {
+    background: #eee;
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #dcdcdc;
+    border-top: 2px solid #aaa;
+    border-right: 2px solid #aaa;
+}
+
+#searchInput,
+#sortSelect {
+    background: #fff;
+    height: 2rem;
+    font: inherit;
+    border: 1px solid #aaa;
+    padding: 0 0.5rem;
+    border-radius: 0;
+}
+
+#catalogList {
+    background: #fff;
+    border: 1px solid #aaa;
+}
+
+#catalogList button {
+    background: transparent;
+    text-align: left;
+    font: inherit;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid #bcbccf;
+}
+
+#catalogList button:hover {
+    background: #eee;
+}
+
+#catalogList button.selected {
+    background-color: #57b4d6;
+    font-weight: bold;
+}
+
+/* __________________________________________ DESIGN / DETAILS __________________________________________ */
+
+#detailsName {
+    font-size: 1.1rem;
+}
+
+#engine h3,
+#specifications h3 {
+    font-size: 1rem;
+}
+
+#detailsContainer,
+#engine,
+#specifications {
+    background: rgb(255 255 255 / 0.5);
+    border: 1px solid #aaa;
+}
+
+#detailsContainer p,
+#engine p,
+#specifications p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+#detailsContainer span,
+#engine span,
+#specifications span {
+    font-weight: bold;
+}
+
+#details {
+    border-bottom: 1px solid #ddd;
+}
+
+

@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/motorcycles/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/motorcycles/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/motorcycles/**").hasRole("ADMIN")
-                .requestMatchers("/", "/index.html", "/js/**").permitAll()
+                .requestMatchers("/", "/index.html", "/js/**", "/css/**").permitAll()
                 .anyRequest().authenticated()
 
             )
