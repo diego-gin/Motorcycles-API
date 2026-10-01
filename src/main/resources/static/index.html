@@ -11,7 +11,7 @@
 
         <nav>
             <a href="/swagger-ui/index.html">Swagger Docs</a>
-            <a id="authButton" href="/login">Log in</a>
+            <button id="authButton" type="button">Log in</button>
         </nav>
 
     </header>
@@ -42,11 +42,13 @@
 
         <section id="detailsSection">
 
+            <h2>Motorcycle Details</h2>
+
+            <p id="detailsMessage"></p>
+
             <div id="imageContainer">
                 <img id="detailsImage" alt="">
             </div>
-
-            <h2>Motorcycles Details</h2>
 
             <div id="details">
                 <h3 id="detailsName"></h3>
@@ -75,7 +77,7 @@
                 <h3>Specifications</h3>
 
                 <p>Weight: <span id="detailsWeight"></span></p>
-                <p>Fuel tank capacity: <span id="detailsFuelTank"></span></p>
+                <p>Fuel tank capacity: <span id="detailsFuelTankCapacity"></span></p>
                 <p>Seat height: <span id="detailsSeatHeight"></span></p>
                 <p>Top speed: <span id="detailsTopSpeed"></span></p>
             </div>

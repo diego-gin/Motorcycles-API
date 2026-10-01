@@ -49,14 +49,13 @@ public class SecurityConfig {
                         PathPatternRequestMatcher.withDefaults().matcher("/api/**")
                 )
             )
-            .formLogin(form -> form.defaultSuccessUrl("/swagger-ui/index.html", true)
-            .permitAll()
-            ).logout(logout -> logout
+            .formLogin(form -> form.defaultSuccessUrl("/", true).permitAll())
+                    .logout(logout -> logout
                     .logoutUrl("/logout")
                     .invalidateHttpSession(true)
                     .clearAuthentication(true)
                     .deleteCookies("JSESSIONID")
-                    .logoutSuccessUrl("/login?logout")
+                    .logoutSuccessUrl("/")
             );
 
         return http.build();

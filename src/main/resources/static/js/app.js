@@ -1,41 +1,117 @@
-console.log("Motorcycle Catalog frontend loaded");
 
 let catalog = [];
+let authenticated = false;
 
-// Catalog elements
+// DOM references
+const authButton = document.getElementById("authButton");
 const searchInput = document.getElementById("searchInput");
-const catalogList = document.getElementById("catalogList");
 const sortSelect = document.getElementById("sortSelect");
-// Details elements
+const catalogList = document.getElementById("catalogList");
+
+const detailsMessage = document.getElementById("detailsMessage");
 const detailsImage = document.getElementById("detailsImage");
 const detailsName = document.getElementById("detailsName");
 const detailsYear = document.getElementById("detailsYear");
-// Identification
+
 const detailsCategory = document.getElementById("detailsCategory");
 const detailsCountry = document.getElementById("detailsCountry");
 const detailsGeneration = document.getElementById("detailsGeneration");
 const detailsVersion = document.getElementById("detailsVersion");
-// Engine
+
 const detailsDisplacement = document.getElementById("detailsDisplacement");
 const detailsPower = document.getElementById("detailsPower");
 const detailsTorque = document.getElementById("detailsTorque");
 const detailsEngineType = document.getElementById("detailsEngineType");
 const detailsCylinders = document.getElementById("detailsCylinders");
 const detailsCooling = document.getElementById("detailsCooling");
-// Specs
+
 const detailsWeight = document.getElementById("detailsWeight");
-const detailsFuelTank = document.getElementById("detailsFuelTank");
+const detailsFuelTankCapacity = document.getElementById("detailsFuelTankCapacity");
 const detailsSeatHeight = document.getElementById("detailsSeatHeight");
 const detailsTopSpeed = document.getElementById("detailsTopSpeed");
 
 // Functions
+function formatValue(value, unit = "") {
+    if (value == null) {
+        return "—";
+    }
+    return `${value}${unit}`;
+}
+
+function getCookie(name) {
+    const cookies = document.cookie.split("; ");
+
+    const cookie = cookies.find(item =>
+        item.startsWith(`${name}=`)
+    );
+
+    if (!cookie) {
+        return null;
+    }
+
+    return decodeURIComponent(cookie.split("=")[1]);
+}
+
+// Auth
+async function loadAuthStatus() {
+    try {
+        const response = await fetch("/api/auth/status");
+
+        if (!response.ok) {
+            throw new Error(`Failed to load authentication status: ${response.status}`);
+        }
+
+        const status = await response.json();
+
+        authenticated = status.authenticated;
+
+        if (authenticated) {
+            authButton.textContent = "Log out";
+        } else {
+            authButton.textContent = "Log in";
+        }
+    } catch (error) {
+        console.error(error);
+
+        authenticated = false;
+        authButton.textContent = "Log in";
+    }
+}
+
+async function logout() {
+    authButton.disabled = true;
+
+    try {
+        const csrfToken = getCookie("XSRF-TOKEN");
+
+        const response = await fetch("/logout", {
+            method: "POST",
+            headers: {
+                "X-XSRF-TOKEN": csrfToken
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to logout: ${response.status}`);
+        }
+
+        await loadAuthStatus();
+
+    } catch (error) {
+        console.error(error);
+    } finally {
+        authButton.disabled = false;
+    }
+}
+
+// Catalog
 async function loadCatalog() {
     try {
         const response = await fetch("/api/motorcycles");
 
-            if (!response.ok) {
-                throw new Error(`Failed to load catalog: ${response.status}`);
-            }
+        if (!response.ok) {
+            throw new Error(`Failed to load catalog: ${response.status}`);
+        }
 
         catalog = await response.json();
 
@@ -47,76 +123,16 @@ async function loadCatalog() {
 
     } catch (error) {
         console.error(error);
-    }
-}
 
-async function loadDetails(id) {
-    try {
-        const response = await fetch(`/api/motorcycles/${id}`);
-            if (!response.ok) {
-                throw new Error(`Failed to load details: ${response.status}`);
-            }
+        catalogList.replaceChildren();
 
-        const item = await response.json();
-
-        renderDetails(item);
-
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-function renderCatalog(items) {
-    catalogList.replaceChildren();
-
-    if (items.length === 0) {
         const message = document.createElement("p");
-        message.textContent = "No motorcycles found.";
+        message.textContent = "Failed to load catalog";
+
         catalogList.appendChild(message);
-        return;
     }
-
-    items.forEach(item => {
-        const element = document.createElement("button");
-
-        element.textContent = `${item.brand} ${item.model}`;
-
-        element.addEventListener("click", async () => {
-            void loadDetails(item.id);
-        });
-        catalogList.appendChild(element);
-    });
 }
 
-function formatValue(value, unit = "") {
-    if (value == null) {
-        return "—";
-    }
-    return `${value}${unit}`;
-}
-
-function renderDetails(item) {
-
-    detailsImage.src = formatValue(item.imageUrl);
-    detailsName.textContent = `${item.brand} ${item.model}`;
-    detailsYear.textContent = `${item.year}`;
-    detailsCategory.textContent = formatValue(item.category);
-    detailsCountry.textContent = formatValue(item.country);
-    detailsGeneration.textContent = formatValue(item.generation);
-    detailsVersion.textContent = formatValue(item.version);
-    detailsDisplacement.textContent = formatValue(item.displacement, " cc");
-    detailsPower.textContent = formatValue(item.power, " hp");
-    detailsTorque.textContent = formatValue (item.torque, " Nm");
-    detailsEngineType.textContent = formatValue(item.engineType);
-    detailsCylinders.textContent = formatValue(item.cylinders);
-    detailsCooling.textContent = formatValue(item.cooling);
-    detailsWeight.textContent = formatValue(item.weight, " kg");
-    detailsFuelTank.textContent = formatValue(item.fuelTank, " L");
-    detailsSeatHeight.textContent = formatValue(item.seatHeight, " mm");
-    detailsTopSpeed.textContent = formatValue(item.topSpeed, " km/h");
-}
-
-// Event listeners
 function updateCatalogList() {
     const searchTerm = searchInput.value.toLowerCase();
 
@@ -166,7 +182,89 @@ function updateCatalogList() {
     return filteredItems;
 }
 
+function renderCatalog(items) {
+    catalogList.replaceChildren();
+
+    if (items.length === 0) {
+        const message = document.createElement("p");
+        message.textContent = "No motorcycles found.";
+        catalogList.appendChild(message);
+        return;
+    }
+
+    items.forEach(item => {
+        const element = document.createElement("button");
+
+        element.textContent = `${item.brand} ${item.model}`;
+
+        element.addEventListener("click", () => {
+            void loadDetails(item.id);
+        });
+        catalogList.appendChild(element);
+    });
+}
+
+// Details
+async function loadDetails(id) {
+    try {
+        detailsMessage.textContent = "";
+
+        const response = await fetch(`/api/motorcycles/${id}`);
+
+        if (!response.ok) {
+            throw new Error(`Failed to load details: ${response.status}`);
+        }
+
+        const item = await response.json();
+
+        renderDetails(item);
+
+    } catch (error) {
+        console.error(error);
+        detailsMessage.textContent = "Failed to load motorcycle details";
+    }
+}
+
+function renderDetails(item) {
+
+    if (item.imageUrl) {
+        detailsImage.src = item.imageUrl;
+        detailsImage.alt = `${item.brand} ${item.model}`;
+    } else {
+        detailsImage.removeAttribute("src");
+        detailsImage.alt = "Image not available";
+    }
+    detailsName.textContent = `${item.brand} ${item.model}`;
+    detailsYear.textContent = `${item.year}`;
+    detailsCategory.textContent = formatValue(item.category);
+    detailsCountry.textContent = formatValue(item.country);
+    detailsGeneration.textContent = formatValue(item.generation);
+    detailsVersion.textContent = formatValue(item.version);
+    detailsDisplacement.textContent = formatValue(item.displacement, " cc");
+    detailsPower.textContent = formatValue(item.power, " hp");
+    detailsTorque.textContent = formatValue(item.torque, " Nm");
+    detailsEngineType.textContent = formatValue(item.engineType);
+    detailsCylinders.textContent = formatValue(item.cylinders);
+    detailsCooling.textContent = formatValue(item.cooling);
+    detailsWeight.textContent = formatValue(item.weight, " kg");
+    detailsFuelTankCapacity.textContent = formatValue(item.fuelTankCapacity, " L");
+    detailsSeatHeight.textContent = formatValue(item.seatHeight, " mm");
+    detailsTopSpeed.textContent = formatValue(item.topSpeed, " km/h");
+}
+
+// Event listeners
 searchInput.addEventListener("input", updateCatalogList);
+
 sortSelect.addEventListener("change", updateCatalogList);
 
-loadCatalog();
+authButton.addEventListener("click", () => {
+    if (authenticated) {
+        void logout();
+    } else {
+        window.location.href = "/login";
+    }
+});
+
+// Initialization
+void loadCatalog();
+void loadAuthStatus();
