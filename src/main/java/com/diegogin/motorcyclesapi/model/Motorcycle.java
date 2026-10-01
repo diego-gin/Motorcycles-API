@@ -44,7 +44,6 @@ public class Motorcycle {
     private String version;
     private String generation;
     private String category;
-    private LocalDate releaseDate;
     private String country;
 
     @Schema(description = "Seat Height in mm", example = "830")
@@ -138,14 +137,6 @@ public class Motorcycle {
 
     public void setYear(Integer year) {
         this.year = year;
-    }
-
-    public LocalDate getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(LocalDate releaseDate) {
-        this.releaseDate = releaseDate;
     }
 
     public String getCountry() {

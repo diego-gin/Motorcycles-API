@@ -4,7 +4,8 @@ public record MotorcycleSummary(
         Long id,
         String brand,
         String model,
-        Integer year
+        Integer year,
+        Integer displacement
 ) {
 
 }
