@@ -2,89 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motorcycle Catalog</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+    <div class="wrapper">
 
-    <header>
-        <h1>Motorcycle Catalog</h1>
+        <header>
+            <h1>Motorcycle Catalog</h1>
 
-        <nav>
-            <a href="/swagger-ui/index.html">Swagger Docs</a>
-            <button id="authButton" type="button">Log in</button>
-        </nav>
+            <nav>
+                <a href="/swagger-ui/index.html">Swagger Docs</a>
+                <button id="authButton" type="button">Log in</button>
+            </nav>
 
-    </header>
+        </header>
 
-    <main>
+        <main>
+            <section id="catalogSection">
+                <h2>Catalog</h2>
 
-        <section id="catalogSection">
-            <h2>Catalog</h2>
+                <div id="catalogContent">
+                    <input id="searchInput" type="search" placeholder="Search motorcycles">
 
-            <input
-                    id="searchInput"
-                    type="search"
-                    placeholder="Search motorcycles"
-            >
+                    <select id="sortSelect">
+                        <option value="name-asc">Name A-Z</option>
+                        <option value="name-desc">Name Z-A</option>
+                        <option value="year-desc">Year: Newest first</option>
+                        <option value="year-asc">Year: Oldest first</option>
+                        <option value="displacement-desc">Displacement: Highest first</option>
+                        <option value="displacement-asc">Displacement: Lowest first</option>
+                    </select>
 
-            <select id="sortSelect">
-                <option value="name-asc">Name A-Z</option>
-                <option value="name-desc">Name Z-A</option>
-                <option value="year-desc">Year: Newest first</option>
-                <option value="year-asc">Year: Oldest first</option>
-                <option value="displacement-desc">Displacement: Highest first</option>
-                <option value="displacement-asc">Displacement: Lowest first</option>
-            </select>
+                    <div id="catalogList"></div>
+                </div>
 
-            <div id="catalogList"></div>
+            </section>
 
-        </section>
+            <section id="detailsSection">
+                <h2>Details</h2>
 
-        <section id="detailsSection">
+                <div id="detailsContent">
 
-            <h2>Motorcycle Details</h2>
+                    <div id="imageContainer">
+                        <img id="detailsImage" alt="">
+                    </div>
 
-            <p id="detailsMessage"></p>
+                    <div id="detailsContainer">
+                        <div id="details">
+                            <p id="detailsMessage"></p>
+                            <h3 id="detailsName"></h3>
+                            <p>Release year: <span id="detailsYear"></span></p>
+                        </div>
 
-            <div id="imageContainer">
-                <img id="detailsImage" alt="">
-            </div>
+                        <div id="identification">
+                            <p>Category: <span id="detailsCategory"></span></p>
+                            <p>Country: <span id="detailsCountry"></span></p>
+                            <p>Generation: <span id="detailsGeneration"></span></p>
+                            <p>Version: <span id="detailsVersion"></span></p>
+                        </div>
+                    </div>
 
-            <div id="details">
-                <h3 id="detailsName"></h3>
-                <p>Release year: <span id="detailsYear"></span></p>
-            </div>
+                    <div id="engine">
+                        <h3>Engine</h3>
 
-            <div id="identification">
-                <p>Category: <span id="detailsCategory"></span></p>
-                <p>Country: <span id="detailsCountry"></span></p>
-                <p>Generation: <span id="detailsGeneration"></span></p>
-                <p>Version: <span id="detailsVersion"></span></p>
-            </div>
+                        <p>Displacement: <span id="detailsDisplacement"></span></p>
+                        <p>Power: <span id="detailsPower"></span></p>
+                        <p>Torque: <span id="detailsTorque"></span></p>
+                        <p>Engine type: <span id="detailsEngineType"></span></p>
+                        <p>Cylinders: <span id="detailsCylinders"></span></p>
+                        <p>Cooling: <span id="detailsCooling"></span></p>
+                    </div>
 
-            <div id="engine">
-                <h3>Engine</h3>
+                    <div id="specifications">
+                        <h3>Specifications</h3>
 
-                <p>Displacement: <span id="detailsDisplacement"></span></p>
-                <p>Power: <span id="detailsPower"></span></p>
-                <p>Torque: <span id="detailsTorque"></span></p>
-                <p>Engine type: <span id="detailsEngineType"></span></p>
-                <p>Cylinders: <span id="detailsCylinders"></span></p>
-                <p>Cooling: <span id="detailsCooling"></span></p>
-            </div>
+                        <p>Weight: <span id="detailsWeight"></span></p>
+                        <p>Fuel tank capacity: <span id="detailsFuelTankCapacity"></span></p>
+                        <p>Seat height: <span id="detailsSeatHeight"></span></p>
+                        <p>Top speed: <span id="detailsTopSpeed"></span></p>
+                    </div>
+                </div>
 
-            <div id="specifications">
-                <h3>Specifications</h3>
+            </section>
+        </main>
 
-                <p>Weight: <span id="detailsWeight"></span></p>
-                <p>Fuel tank capacity: <span id="detailsFuelTankCapacity"></span></p>
-                <p>Seat height: <span id="detailsSeatHeight"></span></p>
-                <p>Top speed: <span id="detailsTopSpeed"></span></p>
-            </div>
-
-        </section>
-    </main>
-
-<script src="/js/app.js"></script>
+    </div>
+    <script src="/js/app.js"></script>
 </body>
 </html>

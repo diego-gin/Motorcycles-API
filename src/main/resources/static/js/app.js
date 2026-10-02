@@ -1,6 +1,7 @@
 
 let catalog = [];
 let authenticated = false;
+let selectedMotorcycleId = null;
 
 // DOM references
 const authButton = document.getElementById("authButton");
@@ -118,7 +119,12 @@ async function loadCatalog() {
         const visibleItems = updateCatalogList();
 
         if (visibleItems.length > 0) {
-            void loadDetails(visibleItems[0].id);
+            selectedMotorcycleId = visibleItems[0].id;
+            updateCatalogList();
+            void loadDetails(selectedMotorcycleId);
+        } else {
+            selectedMotorcycleId = null;
+            renderEmptyDetails();
         }
 
     } catch (error) {
@@ -197,9 +203,16 @@ function renderCatalog(items) {
 
         element.textContent = `${item.brand} ${item.model}`;
 
+        if (item.id === selectedMotorcycleId) {
+            element.classList.add("selected");
+        }
+
         element.addEventListener("click", () => {
+            selectedMotorcycleId = item.id;
+            updateCatalogList();
             void loadDetails(item.id);
         });
+
         catalogList.appendChild(element);
     });
 }
@@ -207,8 +220,6 @@ function renderCatalog(items) {
 // Details
 async function loadDetails(id) {
     try {
-        detailsMessage.textContent = "";
-
         const response = await fetch(`/api/motorcycles/${id}`);
 
         if (!response.ok) {
@@ -226,6 +237,7 @@ async function loadDetails(id) {
 }
 
 function renderDetails(item) {
+    detailsMessage.textContent = "";
 
     if (item.imageUrl) {
         detailsImage.src = item.imageUrl;
@@ -250,6 +262,30 @@ function renderDetails(item) {
     detailsFuelTankCapacity.textContent = formatValue(item.fuelTankCapacity, " L");
     detailsSeatHeight.textContent = formatValue(item.seatHeight, " mm");
     detailsTopSpeed.textContent = formatValue(item.topSpeed, " km/h");
+}
+
+function renderEmptyDetails() {
+    detailsMessage.textContent = "No motorcycle found.";
+
+    detailsImage.removeAttribute("src");
+    detailsImage.alt = "Image not available";
+
+    detailsName.textContent = "";
+    detailsYear.textContent = "—";
+    detailsCategory.textContent = "—";
+    detailsCountry.textContent = "—";
+    detailsGeneration.textContent = "—";
+    detailsVersion.textContent = "—";
+    detailsDisplacement.textContent = "—";
+    detailsPower.textContent = "—";
+    detailsTorque.textContent = "—";
+    detailsEngineType.textContent = "—";
+    detailsCylinders.textContent = "—";
+    detailsCooling.textContent = "—";
+    detailsWeight.textContent = "—";
+    detailsFuelTankCapacity.textContent = "—";
+    detailsSeatHeight.textContent = "—";
+    detailsTopSpeed.textContent = "—";
 }
 
 // Event listeners
