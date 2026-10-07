@@ -16,14 +16,21 @@ h1, h2, h3, p {
 }
 
 .wrapper {
-    width: min(90%, 1280px);
-    margin: 0 auto;
+    width: 1280px;
+    max-width: calc(100% - 2rem);
+    margin-inline: auto;
+    margin-bottom: 1rem;
 }
 
 main {
     display: grid;
     grid-template-columns: minmax(200px, 22%) 1fr;
     gap: 2rem;
+}
+
+footer {
+    height: 2rem;
+    background: #756b47;
 }
 
 /* __________________________________________ HEADER / NAV __________________________________________ */
@@ -79,15 +86,20 @@ nav {
 
 #detailsContent {
     display: grid;
-    grid-template-columns: 55% 1fr;
-    grid-template-rows: 304px auto;
+    grid-template-columns: minmax(280px, 622px) minmax(180px, 1fr);
     gap: 1rem 0.75rem;
 }
 
 #imageContainer {
     width: 100%;
-    height: 100%;
+    aspect-ratio: 16/9;
     overflow: hidden;
+}
+
+#imageContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 #detailsImage {
@@ -95,6 +107,7 @@ nav {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
 }
 
 #detailsContainer {
@@ -102,6 +115,8 @@ nav {
     flex-direction: column;
     grid-column: 2;
     grid-row: 1;
+    height: 100%;
+    align-items: start;
 }
 
 #details {
@@ -133,6 +148,38 @@ nav {
 
 /* __________________________________________ STRUCTURE / MEDIA-QUERY __________________________________________ */
 
+@media (max-width: 1024px) {
+
+    main {
+        align-items: stretch;
+    }
+
+    #catalogSection {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    #catalogContent {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+    }
+
+    #catalogList {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+    }
+
+    #imageContainer {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+    }
+}
+
 @media (max-width: 768px) {
     main {
         grid-template-columns: 1fr;
@@ -149,20 +196,20 @@ nav {
     }
 
     #detailsContent {
-        container-type: inline-size;
-        grid-template-columns: 1fr;
-        grid-template-rows: none;
-        row-gap: 0.75rem;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto;
+        width: 100%;
+        min-width: 0;
     }
 
     #imageContainer {
         width: 100%;
-        height: min(304px, 75cqw);
+        height: auto;
+        aspect-ratio: 3/2;
         overflow: hidden;
     }
 
     #detailsImage {
-        display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -194,7 +241,7 @@ nav {
 
 #catalogList::-webkit-scrollbar-thumb {
     background: #999;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 header {
