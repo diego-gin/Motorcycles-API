@@ -131,6 +131,30 @@ Then open:
 http://localhost:8080
 ```
 
+## Sample Data
+
+The project includes an optional dataset of **30 motorcycles** for development and demonstration purposes.
+
+The sample data is stored in `database/seed.sql`, with corresponding motorcycle images located in `src/main/resources/static/images/motorcycles/`.
+
+### Importing the Dataset
+
+Make sure PostgreSQL is running and the `motorcycles_db` database and its tables have been created.
+
+Start the application at least once to allow Hibernate to create the required database tables before importing the dataset.
+
+Run the following command from the project root:
+
+```bash
+psql -U postgres -d motorcycles_db -f database/seed.sql
+```
+
+The seed script uses UTF-8 encoding and populates the motorcycle catalog with technical specifications and image paths.
+
+> **Note:** The dataset is intended for development and demonstration. Review the SQL script before running it against a database containing existing records.
+
+The application can run without the sample dataset.
+
 ## API Documentation
 
 Swagger UI is available at:
