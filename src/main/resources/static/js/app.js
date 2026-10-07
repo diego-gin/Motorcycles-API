@@ -250,6 +250,18 @@ function renderDetails(item) {
     detailsYear.textContent = `${item.year}`;
     detailsCategory.textContent = formatValue(item.category);
     detailsCountry.textContent = formatValue(item.country);
+
+    const flagFile = getCountryFlag(item.country);
+
+    if (flagFile) {
+        const flagImage = document.createElement("img");
+
+        flagImage.src = `/images/flags/${flagFile}`;
+        flagImage.alt = `${item.country} flag`;
+        flagImage.classList.add("country-flag");
+
+        detailsCountry.appendChild(flagImage);
+    }
     detailsGeneration.textContent = formatValue(item.generation);
     detailsVersion.textContent = formatValue(item.version);
     detailsDisplacement.textContent = formatValue(item.displacement, " cc");
@@ -286,6 +298,19 @@ function renderEmptyDetails() {
     detailsFuelTankCapacity.textContent = "—";
     detailsSeatHeight.textContent = "—";
     detailsTopSpeed.textContent = "—";
+}
+
+function getCountryFlag(country) {
+    const flags = {
+        "Italy": "italy.svg",
+        "Japan": "japan.svg",
+        "Germany": "germany.svg",
+        "United States": "united-states.svg",
+        "United Kingdom": "united-kingdom.svg",
+        "Austria": "austria.svg"
+    };
+
+    return flags[country] ?? null;
 }
 
 // Event listeners
