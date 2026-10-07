@@ -1,3 +1,5 @@
+\encoding UTF8
+
 -- Sample motorcycle dataset for Motorcycles API.
 -- Technical specifications use hp, Nm, kg, L, mm and km/h.
 -- The weight field represents dry weight only.
