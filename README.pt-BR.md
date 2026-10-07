@@ -130,6 +130,30 @@ Depois, acesse:
 http://localhost:8080
 ```
 
+## Dados de exemplo
+
+O projeto inclui um conjunto opcional de **30 motocicletas** para desenvolvimento e demonstração.
+
+Os dados estão armazenados em `database/seed.sql`, com as imagens correspondentes localizadas em `src/main/resources/static/images/motorcycles/`.
+
+### Importando os dados
+
+Certifique-se de que o PostgreSQL esteja em execução e que o banco `motorcycles_db` e suas tabelas já tenham sido criados.
+
+Inicie a aplicação pelo menos uma vez para permitir que o Hibernate crie as tabelas necessárias no banco de dados antes de importar os dados de exemplo.
+
+Execute o seguinte comando na raiz do projeto:
+
+```bash
+psql -U postgres -d motorcycles_db -f database/seed.sql
+```
+
+O script utiliza codificação UTF-8 e popula o catálogo com especificações técnicas e caminhos das imagens.
+
+> **Observação:** Os dados são destinados a desenvolvimento e demonstração. Revise o script SQL antes de executá-lo em um banco que já contenha registros.
+
+A aplicação pode funcionar sem os dados de exemplo.
+
 ## Documentação da API
 
 O Swagger UI está disponível em:

@@ -1,18 +1,37 @@
 
-/* __________________________________________ MAIN / SET-UP __________________________________________ */
+/* _______________________________ VARIABLES _______________________________ */
+:root {
+    --bg-color: #fdf5cf;
+    --bg-title: #eee;
+    --bg-list: #fff;
+    --scroll-track: #e5e5e5;
+    --scroll-thumb: #999;
+    --button-selected: #56c6f6;
+    --button-hover: #eee;
+    --font-primary: Arial, Helvetica;
+    --font-secondary: Verdana, Geneva;
+    --font-h1: 1.5rem;
+    --font-headers: 1.125rem;
+    --font-details: 1.5rem;
+    --font-body: 1rem;
+}
 
+/* _______________________________ STRUCTURE _______________________________ */
+/* ----- MAIN / SET-UP ----- */
 * {
     box-sizing: border-box;
 }
 
 body {
-    background: #fdf5cf;
     margin: 0;
-    font-family: Arial, sans-serif;
 }
 
-h1, h2, h3, p {
+h1, h2, h3 {
     margin: 0.75rem;
+}
+
+p {
+    margin: 0.375rem 1.25rem;
 }
 
 .wrapper {
@@ -30,11 +49,9 @@ main {
 
 footer {
     height: 2rem;
-    background: #756b47;
 }
 
-/* __________________________________________ HEADER / NAV __________________________________________ */
-
+/* ----- HEADER / NAV ----- */
 header {
     display: flex;
     justify-content: space-between;
@@ -47,8 +64,7 @@ nav {
     gap: 1rem;
 }
 
-/* __________________________________________ STRUCTURE / CATALOG __________________________________________ */
-
+/* ----- CATALOG SECTION ----- */
 #catalogContent {
     display: grid;
     gap: 0.75rem;
@@ -70,14 +86,14 @@ nav {
     cursor: pointer;
 }
 
-/* __________________________________________ STRUCTURE / DETAILS __________________________________________ */
-
+/* ----- DETAILS SECTION ----- */
 #catalogSection > h2,
 #detailsSection > h2 {
-    height: 48px;
-    margin: 0;
     display: flex;
+    height: 48px;
     align-items: center;
+    margin: 0;
+    padding: 0.5rem 0.75rem;
 }
 
 #detailsMessage:empty {
@@ -88,6 +104,13 @@ nav {
     display: grid;
     grid-template-columns: minmax(280px, 622px) minmax(180px, 1fr);
     gap: 1rem 0.75rem;
+}
+
+.country-flag {
+    width: 20px;
+    height: auto;
+    margin-left: 0.5rem;
+    vertical-align: middle;
 }
 
 #imageContainer {
@@ -122,7 +145,6 @@ nav {
 #details {
     display: flex;
     flex-direction: column;
-    flex: 1;
     justify-content: center;
 }
 
@@ -132,22 +154,30 @@ nav {
 }
 
 #identification {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     grid-column: 2;
     grid-row: 2;
 }
 
 #engine {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
     grid-column: 1;
     grid-row: 2;
 }
 
 #specifications {
+   display: flex;
+   flex-direction: column;
+   justify-content: start;
    grid-column: 2;
    grid-row: 2;
 }
 
-/* __________________________________________ STRUCTURE / MEDIA-QUERY __________________________________________ */
-
+/* ----- MEDIA-QUERY ----- */
 @media (max-width: 1024px) {
 
     main {
@@ -225,23 +255,22 @@ nav {
     }
 
     #catalogList {
-        max-height: 280px;
+        max-height: 180px;
+        overflow-y: auto;
     }
 }
 
-/* __________________________________________ DESIGN __________________________________________ */
+/* _______________________________ DESIGN _______________________________ */
+/* ----- GENERAL ----- */
 
-#catalogList::-webkit-scrollbar {
-    width: 15px;
+body {
+    background: var(--bg-color);
+    font-family: var(--font-primary), serif;
+    font-size: var(--font-body);
 }
 
-#catalogList::-webkit-scrollbar-track {
-    background: #e5e5e5;
-}
-
-#catalogList::-webkit-scrollbar-thumb {
-    background: #999;
-    border-radius: 2px;
+h1, h2, h3 {
+    font-family: var(--font-secondary) serif;
 }
 
 header {
@@ -249,30 +278,32 @@ header {
 }
 
 header h1 {
-    font-size: 1.5rem;
+    font-size: var(--font-h1);
 }
 
+footer {
+    background: var(--bg-color);
+}
+
+/* auth button */
 #authButton {
     padding: 0.4rem 0.75rem;
-
     font: inherit;
-
     background: #fff;
     border: 1px solid #aaa;
     cursor: pointer;
 }
 
 #authButton:hover {
-    background: #eee;
+    background: var(--button-hover);
 }
 
-/* __________________________________________ DESIGN / CATALOG __________________________________________ */
+/* ----- CATALOG ----- */
 
 #catalogSection > h2,
 #detailsSection > h2 {
-    background: #eee;
-    font-size: 1rem;
-    padding: 0.5rem 0.75rem;
+    background: var(--bg-title);
+    font-size: var(--font-headers);
     border: 1px solid #dcdcdc;
     border-top: 2px solid #aaa;
     border-right: 2px solid #aaa;
@@ -280,7 +311,7 @@ header h1 {
 
 #searchInput,
 #sortSelect {
-    background: #fff;
+    background: var(--bg-list);
     height: 2rem;
     font: inherit;
     border: 1px solid #aaa;
@@ -289,8 +320,20 @@ header h1 {
 }
 
 #catalogList {
-    background: #fff;
-    border: 1px solid #aaa;
+    background: var(--bg-list);
+    border: #eee solid 1px;
+}
+
+#catalogList::-webkit-scrollbar {
+    width: 1rem;
+}
+
+#catalogList::-webkit-scrollbar-track {
+    background: var(--scroll-track);
+}
+
+#catalogList::-webkit-scrollbar-thumb {
+    background: var(--scroll-thumb);
 }
 
 #catalogList button {
@@ -302,42 +345,36 @@ header h1 {
 }
 
 #catalogList button:hover {
-    background: #eee;
+    background: var(--button-hover);
 }
 
 #catalogList button.selected {
-    background-color: #57b4d6;
+    background-color: var(--button-selected);
     font-weight: bold;
 }
 
-/* __________________________________________ DESIGN / DETAILS __________________________________________ */
+/* ----- DETAILS ----- */
 
 #detailsName {
-    font-size: 1.1rem;
+    font-size: var(--font-details);
 }
 
 #engine h3,
 #specifications h3 {
-    font-size: 1rem;
+    font-size: var(--font-headers);
 }
 
-#detailsContainer,
-#engine,
-#specifications {
+#detailsContainer, #engine, #specifications {
     background: rgb(255 255 255 / 0.5);
     border: 1px solid #aaa;
 }
 
-#detailsContainer p,
-#engine p,
-#specifications p {
-    font-size: 0.9rem;
+#detailsContainer p, #engine p, #specifications p {
+    font-size: var(--font-body);
     line-height: 1.4;
 }
 
-#detailsContainer span,
-#engine span,
-#specifications span {
+#detailsContainer span, #engine span, #specifications span {
     font-weight: bold;
 }
 
