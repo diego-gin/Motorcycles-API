@@ -1,13 +1,12 @@
-package motos_api;
+package com.diegogin.motorcyclesapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MotosApiApplicationTests {
+class MotorcycleApiApplicationTests {
 
 	@Test
 	void contextLoads() {
 	}
-
 }

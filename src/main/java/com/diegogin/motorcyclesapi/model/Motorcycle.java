@@ -1,29 +1,78 @@
 package com.diegogin.motorcyclesapi.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "motorcycles")
 public class Motorcycle {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String imageUrl;
+
+    @Schema(example = "Honda")
+    @NotBlank(message = "Brand is required")
+    @Column(nullable=false)
     private String brand;
+
+    @Schema(example = "CBR900RR FireBlade")
+    @NotBlank(message = "Model is required")
+    @Column(nullable=false)
     private String model;
+
+    @Schema(example = "1992")
+    @NotNull(message = "Year is required")
+    @Min(value = 1915, message = "Year must be greater than 1915")
+    @Column(nullable=false)
+    private Integer year;
+
+    private String imageUrl;
     private String version;
     private String generation;
     private String category;
-    private Integer year;
-    private LocalDate releaseDate;
     private String country;
-    private String seatHeight;
+
+    @Schema(description = "Seat Height in mm", example = "830")
+    @Positive(message = "Seat Height must be greater than zero")
+    private Integer seatHeight;
+
+    @Positive(message = "Weight must be greater than zero")
     private BigDecimal weight;
+
+    @Positive(message = "Fuel tank capacity must be greater than zero")
     private BigDecimal fuelTankCapacity;
+
     private String engineType;
     private String cooling;
+
+    @Positive(message = "Number of cylinders must be greater than zero")
     private Integer cylinders;
+
+    @Positive(message = "Power must be greater than zero")
     private BigDecimal power;
+
+    @Positive(message = "Torque must be greater than zero")
     private BigDecimal torque;
+
+    @Schema(description = "Displacement in CC", example = "893")
+    @Positive(message = "Displacement must be greater than zero")
     private Integer displacement;
+
+    @Positive(message = "Top speed must be greater than zero")
     private Integer topSpeed;
 
     public Long getId() {
@@ -90,14 +139,6 @@ public class Motorcycle {
         this.year = year;
     }
 
-    public LocalDate getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(LocalDate releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
     public String getCountry() {
         return country;
     }
@@ -106,11 +147,11 @@ public class Motorcycle {
         this.country = country;
     }
 
-    public String getSeatHeight() {
+    public Integer getSeatHeight() {
         return seatHeight;
     }
 
-    public void setSeatHeight(String seatHeight) {
+    public void setSeatHeight(Integer seatHeight) {
         this.seatHeight = seatHeight;
     }
 
