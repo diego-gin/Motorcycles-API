@@ -6,6 +6,16 @@ Uma aplicação full-stack de catálogo de motocicletas desenvolvida com Spring 
 
 O projeto fornece uma API REST para gerenciamento de dados de motocicletas, uma interface web responsiva para navegação pelo catálogo, autenticação baseada em sessão para operações administrativas e documentação interativa da API com Swagger UI.
 
+## Demonstração Online
+
+A aplicação está publicada no Render utilizando Docker, com banco de dados PostgreSQL hospedado no Neon.
+
+- **Aplicação Web:** [Acessar aplicação](https://motorcycles-api.onrender.com)
+- **API REST:** [Consultar motocicletas](https://motorcycles-api.onrender.com/api/motorcycles)
+- **Documentação da API:** [Swagger UI](https://motorcycles-api.onrender.com/swagger-ui/index.html)
+
+> **Observação:** A aplicação utiliza o plano gratuito do Render. O primeiro acesso após um período de inatividade pode demorar 50 segundos ou mais enquanto o serviço é iniciado.
+
 ## Funcionalidades
 
 - Catálogo de motocicletas com especificações técnicas detalhadas

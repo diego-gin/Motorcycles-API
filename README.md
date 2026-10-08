@@ -6,6 +6,16 @@ A full-stack motorcycle catalog application built with Spring Boot, PostgreSQL, 
 
 The project provides a REST API for managing motorcycle data, a responsive web interface for browsing the catalog, session-based authentication for administrative operations, and interactive API documentation with Swagger UI.
 
+## Live Demo
+
+The application is deployed on Render using Docker, with a PostgreSQL database hosted on Neon.
+
+- **Web Application:** [Open Application](https://motorcycles-api.onrender.com)
+- **REST API:** [Motorcycles Endpoint](https://motorcycles-api.onrender.com/api/motorcycles)
+- **API Documentation:** [Swagger UI](https://motorcycles-api.onrender.com/swagger-ui/index.html)
+
+> **Note:** The application runs on Render's free tier. The first request after a period of inactivity may take 50 seconds or longer while the service starts.
+
 ## Features
 
 - Motorcycle catalog with detailed technical specifications
