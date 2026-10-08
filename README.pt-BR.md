@@ -176,21 +176,29 @@ Os endpoints públicos podem ser testados diretamente. Após realizar o login co
 
 ## Arquitetura
 
+A aplicação segue uma arquitetura em camadas, combinando uma API REST desenvolvida com Spring Boot e um frontend estático servido pela mesma aplicação.
+
 ```text
-Frontend
-HTML / CSS / JavaScript
-        │
-        ├── Spring Security
-        │
-        ├── REST Controller
-        │
-        ├── Service
-        │
-        ├── Repository
-        │
-        └── JPA / Hibernate
-                    │
-                PostgreSQL
+                  Client (Browser)
+                         |
+                  HTTPS (Render)
+                         |
+                Spring Boot (Docker)
+                         |
+              +----------+----------+
+              |                     |
+       Static Frontend        Spring Security
+       HTML / CSS / JS              |
+                                    |
+                             REST Controllers
+                                    |
+                               Service Layer
+                                    |
+                            Spring Data JPA
+                                    |
+                               Hibernate
+                                    |
+                            PostgreSQL (Neon)
 ```
 
 ## Licença

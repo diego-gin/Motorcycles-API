@@ -177,21 +177,29 @@ Public endpoints can be tested directly. After logging in as an administrator, p
 
 ## Architecture
 
+The application follows a layered architecture, combining a Spring Boot REST API with a static frontend served by the same application.
+
 ```text
-Frontend
-HTML / CSS / JavaScript
-        │
-        ├── Spring Security
-        │
-        ├── REST Controller
-        │
-        ├── Service
-        │
-        ├── Repository
-        │
-        └── JPA / Hibernate
-                    │
-                PostgreSQL
+                  Client (Browser)
+                         |
+                  HTTPS (Render)
+                         |
+                Spring Boot (Docker)
+                         |
+              +----------+----------+
+              |                     |
+       Static Frontend        Spring Security
+       HTML / CSS / JS              |
+                                    |
+                             REST Controllers
+                                    |
+                               Service Layer
+                                    |
+                            Spring Data JPA
+                                    |
+                               Hibernate
+                                    |
+                            PostgreSQL (Neon)
 ```
 
 ## License
